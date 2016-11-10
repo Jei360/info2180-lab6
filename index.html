@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="text/javascript">
+        function Myfunction()
+        {
+            var httpRequest;
+            httpRequest = new XMLHttpRequest();
+            if (!httpRequest) 
+            {
+                alert('Giving up :( Cannot create an XMLHTTP instance');
+                return false;
+            }
+        
+            httpRequest.onreadystatechange = function()
+            {
+                if (httpRequest.readyState === 4 && httpRequest.status === 200)
+                {
+                    alert(httpRequest.responseText);
+                }
+                else 
+                {
+                    console.logs('There was a problem with the request.');
+                }
+            };
+                console.log("Now it works, Connection Successful");
+                httpRequest.open('GET', "request.php?q=definition", true);
+                httpRequest.send();
+        }
+            
+        
+        </script>
+        <style>
+            #head
+            {
+                /*width: 500px;
+                height: 100px;*/
+                background-color: purple;
+                font-size: 40px;
+                font-family: "Comic Sans Ms";
+                color: white;
+                padding: 20px 5px;
+            }
+        </style>
+    
+    
+    </head>
+    <body>
+        <div id="head">Web Dictionary</div>
+        <p>Click this  <button id="click" onclick="Myfunction()">Button</button> to define the word  definition.</p>
+       
+        <p></p>
+    </body>
+</html>
