@@ -2,7 +2,7 @@
 <html>
     <head>
         <script type="text/javascript">
-        function Myfunction()
+        /*function Myfunction()
         {
             var httpRequest;
             var word= document.getElementById("word").value;
@@ -17,7 +17,7 @@
             {
                 if (httpRequest.readyState === 4 && httpRequest.status === 200)
                 {
-                    
+        
                     document.getElementById("result").innerHTML=httpRequest.responseText;
                     document.getElementsByTagName("h3").innerHTML=word;
                     //alert(httpRequest.responseText);
@@ -30,6 +30,52 @@
                 console.log("Now it works, Connection Successful");
                 httpRequest.open('GET', "request.php?q="+word, true);
                 httpRequest.send();
+        }*/
+        
+        
+        function Getall()//document.getElementById("clickall")
+        {
+            var xmlRequest= new XMLHttpRequest();
+            var xmldoc = xmlRequest.responseXML;
+            var def= xmldoc.getElementsByTagName('definition');
+            var x;
+            var word= document.getElementById("word").value;
+            var list='';
+            if (!xmlRequest) 
+            {
+                alert('Giving up :( Cannot create an XMLHTTP instance');
+                return false;
+            }
+            
+            xmlRequest.open('GET', "request.php?q=&all=true", true);
+            xmlRequest.send();
+        
+            xmlRequest.onreadystatechange = function()
+            {
+                if (xmlRequest.readyState === 4 && xmlRequest.status === 200)
+                {
+                    
+                    //document.getElementById("result").innerHTML=httpRequest.responseText;
+                    //document.getElementsByTagName("h3").innerHTML=word;
+                    //alert(httpRequest.responseText);
+                    //document.createElement("ol");
+                    //list+='<ol>';
+                    //for(x=0;x<d.length;x++)
+                    //{
+                        //list+='<li><h3>'+d(x).name+':<h3>';
+                        //list+='<p>'+d(x)+'</p>';
+                        //list+='<p>-'+d(x).author+'</p></li>';
+                        //console.logs(list);
+                    //}
+                    //list+='</ol>';
+                    //console.logs(list);
+                }
+                else 
+                {
+                    console.logs('There was a problem with the request.');
+                }
+            };
+                //console.log("Now it works, Connection Successful");
         }
             
         
@@ -37,8 +83,6 @@
         <style>
             #head
             {
-                /*width: 500px;
-                height: 100px;*/
                 background-color: purple;
                 font-size: 40px;
                 font-family: "Comic Sans Ms";
@@ -46,7 +90,7 @@
                 padding: 20px 5px;
             }
             
-            #click
+            #click, #clickall
             {
                 border: 2px #1E90FF;
                 border-radius: 2px;
@@ -54,6 +98,7 @@
                 color: white;
                 padding: 5px;
                 font-family: "Comic Sans Ms";
+                margin-left:2px;
             }
             
             #word
@@ -70,9 +115,10 @@
     <body>
         <div id="head">Web Dictionary</div>
         <p>search for the definition of a word. eg. bar, ajax, html, css, javascript, php</p>
-        <input type="text" id="word" value=""><button id="click" onclick="Myfunction()">Search</button>
+        <input type="text" id="word" value=""><button id="click" onclick="Myfunction()">Search</button><button id="clickall" onclick="Getall()">Get all Definitionsa</button>
         <h2><strong>Result</strong></h2>
         <h3><strong></strong></h3>
         <div id="result"></div>
+        <p></p>
     </body>
 </html>
